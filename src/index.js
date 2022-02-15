@@ -1,5 +1,5 @@
 // Import dependencies
-import express, { Router } from 'express';
+import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import consola from 'consola';

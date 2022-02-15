@@ -71,7 +71,9 @@ UserSchema.methods.generatePasswordReset = async function(){
 }
 
 UserSchema.methods.getUserInfo = function () {
-    return pick(this, ["_id", "username", "email", "name"]);
+    const choose = pick(this, ["_id", "username", "email", "name", "verified"]);
+    console.log(choose);
+    return (choose);
 }
 
 const User = model("users", UserSchema);
