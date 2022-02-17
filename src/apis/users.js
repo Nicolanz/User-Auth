@@ -4,8 +4,10 @@ import { join } from "path";
 import { randomBytes } from "crypto";
 import { DOMAIN } from "../constants";
 import sendMail from "../functions/email-sender";
-import { AuthenticateValidations, RegisterValidations } from "../validators";
+import { userAuth } from "../middlewares/auth-guard";
 import Validator from "../middlewares/validator-middleware";
+import { AuthenticateValidations, RegisterValidations } from "../validators";
+
 
 const router = Router();
 
@@ -114,7 +116,7 @@ router.post("/api/authenticate", AuthenticateValidations, Validator, async (req,
 
         let { username, password } = req.body;
         let user = await User.findOne({ username });
-        
+
         // validate user and correct password
         if (!user){
             return res.status(404).json({
@@ -134,7 +136,7 @@ router.post("/api/authenticate", AuthenticateValidations, Validator, async (req,
         return res.status(200).json({
             success: true,
             user: user.getUserInfo(),
-            token: `Token: ${token}`,
+            token: `Bearer ${token}`,
             message: "Hurray, you are now logged in",
         });
 
@@ -147,5 +149,18 @@ router.post("/api/authenticate", AuthenticateValidations, Validator, async (req,
 
     }
 })
+
+/**
+ * @description To get the authenticated user's profile
+ * @api /users/api/authenticate
+ * @access Private
+ * @type GET
+ */ 
+router.get("/api/authenticate", userAuth,
+async (req, res)=>{
+    return res.status(200).json({
+        user: req.user
+    });
+});
 
 export default router;

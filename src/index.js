@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import consola from 'consola';
+import passport from 'passport';
 
 // Import app env vars
 import { DB, PORT } from './constants/index';
@@ -10,17 +11,24 @@ import { DB, PORT } from './constants/index';
 // Import Router
 import userApis from "./apis/users";
 
+// Import passport middleware
+require("./middlewares/passport-middleware");
+
 // Init app object
 const app = express();
 
-// app.use is called every time a request in sent to the server
 
 // Use middlewares
 // CORS used to allow conectivity among 2 servers
 app.use(cors());
 // Parser to get the req in a json obj
 app.use(express.json());
+
+app.use(passport.initialize());
+
+
 // inject sub router and apis
+// app.use is called every time a request in sent to the server
 app.use('/users', userApis);
 
 // Main funtion 
