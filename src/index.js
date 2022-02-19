@@ -1,6 +1,7 @@
 // Import dependencies
 import express from 'express';
 import cors from 'cors';
+import {join} from 'path';
 import mongoose from 'mongoose';
 import consola from 'consola';
 import passport from 'passport';
@@ -10,6 +11,7 @@ import { DB, PORT } from './constants/index';
 
 // Import Router
 import userApis from "./apis/users";
+import profileApis from "./apis/profiles";
 
 // Import passport middleware
 require("./middlewares/passport-middleware");
@@ -25,11 +27,13 @@ app.use(cors());
 app.use(express.json());
 
 app.use(passport.initialize());
+app.use(express.static(join(__dirname, './uploads')));
 
 
 // inject sub router and apis
 // app.use is called every time a request in sent to the server
 app.use('/users', userApis);
+app.use('/profiles', profileApis);
 
 // Main funtion 
 const main = async() => {
