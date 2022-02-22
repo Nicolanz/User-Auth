@@ -8,7 +8,7 @@
 
 ## Description
 
-This repository contains the backend of a basic User Authentication system made with Express
+This repo contains the back-end of a User Authentication system made with Node-Express.
 
 ## Installation
 Please clone this repo locally. Then, make sure you have `node ^15`, `npm ^7`, and `mongo ^5` installed on your operating system.
@@ -34,7 +34,7 @@ passport: ^0.5.2
 passport-jwt: ^4.0.0
 ```
 
-You also must fill the value of the env variables found in the - [.env.example](./.env.example) file. I recommend you to define them into a file called: `.env`
+You also must fill the value of the env variables found in the [.env.example](./.env.example) file. I recommend you to define them into a file called: `.env`
 ```
 # Api generated in Sendgrid to send emails.
 SENDGRID_API=
